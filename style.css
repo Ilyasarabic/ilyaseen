@@ -20,7 +20,7 @@ section {
 
 
 #hero {
-    background: url('./img/hero_bg.png') center/cover fixed;
+    background: url('./hero_bg.png') center/cover fixed;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -165,7 +165,7 @@ button::before {
 
 
 #features {
-    background: url('./img/rest-bg.png') center/cover fixed;
+    background: url('./rest-bg.png') center/cover fixed;
     min-height: fit-content; max-height: fit-content;
     display: flex;
     flex-wrap: wrap;
@@ -208,7 +208,7 @@ button::before {
     height: 120px;
     padding: 0.5rem;
     margin: 1%;
-    background: url('./img/hero_bg.png') center/cover fixed;
+    background: url('./hero_bg.png') center/cover fixed;
     border-radius: 8px;
     backdrop-filter: blur(5px);
     border-bottom: 3px solid rgba(255, 255, 255, 0.440);
@@ -263,7 +263,7 @@ button::before {
 
 
 #guarantee {
-    background: url('./img/rest-bg.png') center/cover fixed;
+    background: url('./rest-bg.png') center/cover fixed;
     min-height: fit-content; max-height: fit-content;
     display: flex;
     flex-wrap: wrap;
@@ -316,7 +316,7 @@ button::before {
     border-radius: 8px;
 }
 .card {
-    background: url('./img/hero_bg.png') center/cover fixed;
+    background: url('./hero_bg.png') center/cover fixed;
     border-radius: 8px;
     padding: 30px;
     margin: 2%;
@@ -389,7 +389,7 @@ button::before {
 
 
 #testimonials {
-    background: url('./img/rest-bg.png') center/cover fixed;
+    background: url('./rest-bg.png') center/cover fixed;
     min-height: fit-content; max-height: min-content;
     display: flex;
     flex-wrap: wrap;
@@ -444,7 +444,7 @@ button::before {
 
 
 #pricing {
-    background: url('./img/rest-bg.png') center/cover fixed;
+    background: url('./rest-bg.png') center/cover fixed;
     min-height: fit-content; max-height: fit-content;
     display: flex;
     flex-wrap: wrap;
@@ -483,7 +483,7 @@ button::before {
     margin-bottom: 15%;
 }
 .p-card {
-    background: url('./img/hero_bg.png') center/cover fixed;
+    background: url('./hero_bg.png') center/cover fixed;
     border-radius: 8px;
     padding: 30px;
     margin: 1%;
@@ -515,7 +515,7 @@ button::before {
     font-size: small;
 }
 .p-card button {
-    background: url('./img/rest-bg.png') center/cover fixed;
+    background: url('./rest-bg.png') center/cover fixed;
     border: none;
     padding: 12px 24px;
     color: rgb(218, 244, 237);
@@ -533,7 +533,7 @@ button::before {
 
 
 #cta {
-    background: url('./img/rest-bg.png') center/cover fixed;
+    background: url('./rest-bg.png') center/cover fixed;
     min-height: fit-content; max-height: min-content;
     display: flex;
     flex-wrap: wrap;
@@ -579,7 +579,7 @@ button::before {
 }
 #cta .c-btn {
     height: 7vh; width: 250px;
-    background: url('./img/hero_bg.png') center/cover fixed;
+    background: url('./hero_bg.png') center/cover fixed;
     color: white;
     border: none;
     cursor: pointer;
