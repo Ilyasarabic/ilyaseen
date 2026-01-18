@@ -1717,6 +1717,91 @@
             display: block;
         }
 
+        /* СТИЛИ ДЛЯ ЧЕКБОКСОВ */
+        .checkbox-container {
+            margin-bottom: 20px;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 15px;
+            cursor: pointer;
+            user-select: none;
+            padding: 10px;
+            border-radius: 8px;
+            transition: background-color 0.2s;
+        }
+
+        .checkbox-item:hover {
+            background-color: #f9fafb;
+        }
+
+        .checkbox-item input[type="checkbox"] {
+            display: none;
+        }
+
+        .checkbox-custom {
+            width: 22px;
+            height: 22px;
+            border: 2px solid #d1d5db;
+            border-radius: 5px;
+            margin-right: 12px;
+            margin-top: 2px;
+            flex-shrink: 0;
+            position: relative;
+            transition: all 0.2s;
+            background-color: white;
+        }
+
+        .checkbox-item input[type="checkbox"]:checked + .checkbox-custom {
+            background-color: #2563eb;
+            border-color: #2563eb;
+        }
+
+        .checkbox-item input[type="checkbox"]:checked + .checkbox-custom::after {
+            content: '✓';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .checkbox-text {
+            flex: 1;
+            font-size: 14px;
+            color: #374151;
+            line-height: 1.5;
+        }
+
+        .checkbox-link {
+            color: #2563eb;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.2s;
+        }
+
+        .checkbox-link:hover {
+            color: #1d4ed8;
+            text-decoration: underline;
+        }
+
+        .checkbox-error {
+            display: none;
+            color: #dc2626;
+            font-size: 13px;
+            margin-top: 5px;
+            text-align: left;
+            font-weight: 500;
+        }
+
+        .checkbox-error.show {
+            display: block;
+        }
+
         @keyframes fadeIn {
             from { opacity: 0; }
             to { opacity: 1; }
@@ -2624,6 +2709,39 @@
                     </div>
                 </div>
                 
+                <!-- ЧЕКБОКСЫ ДЛЯ ДОГОВОРА И ПОЛИТИКИ -->
+                <div class="checkbox-container">
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="agreementCheckbox" name="agreement">
+                        <label for="agreementCheckbox" class="checkbox-custom"></label>
+                        <div class="checkbox-text">
+                            Я принимаю условия 
+                            <a href="https://drive.google.com/file/d/16STSxeuPGK-BiCb62LpVGD5tfN0ikhYK/view?usp=sharing" 
+                               target="_blank" class="checkbox-link">
+                                договора-оферты
+                            </a>
+                        </div>
+                    </div>
+                    <div class="checkbox-error" id="agreementError">
+                        Необходимо принять условия договора-оферты
+                    </div>
+                    
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="privacyCheckbox" name="privacy">
+                        <label for="privacyCheckbox" class="checkbox-custom"></label>
+                        <div class="checkbox-text">
+                            Я принимаю условия 
+                            <a href="https://drive.google.com/file/d/1pbNxfmcCBi_1wAnLac6bOxnZqoq1NmEE/view?usp=sharing" 
+                               target="_blank" class="checkbox-link">
+                                политики конфиденциальности
+                            </a>
+                        </div>
+                    </div>
+                    <div class="checkbox-error" id="privacyError">
+                        Необходимо принять условия политики конфиденциальности
+                    </div>
+                </div>
+                
                 <input type="hidden" id="selectedTariff" value="">
                 <input type="hidden" id="selectedCountryName" value="Россия">
                 <input type="hidden" id="selectedCountryCode" value="7">
@@ -2916,6 +3034,34 @@
             return true;
         }
 
+        // === ВАЛИДАЦИЯ ЧЕКБОКСОВ ===
+        function validateCheckboxes() {
+            const agreementCheckbox = document.getElementById('agreementCheckbox');
+            const privacyCheckbox = document.getElementById('privacyCheckbox');
+            const agreementError = document.getElementById('agreementError');
+            const privacyError = document.getElementById('privacyError');
+            
+            let isValid = true;
+            
+            // Сбрасываем ошибки
+            agreementError.classList.remove('show');
+            privacyError.classList.remove('show');
+            
+            // Проверяем первый чекбокс
+            if (!agreementCheckbox.checked) {
+                agreementError.classList.add('show');
+                isValid = false;
+            }
+            
+            // Проверяем второй чекбокс
+            if (!privacyCheckbox.checked) {
+                privacyError.classList.add('show');
+                isValid = false;
+            }
+            
+            return isValid;
+        }
+
         // === ОБРАБОТКА ОТПРАВКИ ФОРМЫ ===
         document.getElementById('leadForm').addEventListener('submit', function(e) {
             e.preventDefault();
@@ -2951,6 +3097,14 @@
             }
             
             errorElement.classList.remove('show');
+            
+            // Валидация чекбоксов
+            if (!validateCheckboxes()) {
+                messageEl.textContent = 'Пожалуйста, примите условия договора и политики конфиденциальности';
+                messageEl.style.color = '#ef4444';
+                messageEl.style.display = 'block';
+                return;
+            }
             
             // Меняем кнопку
             submitBtn.textContent = 'Отправка...';
@@ -3075,6 +3229,12 @@
                 submitBtn.style.background = 'linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%)';
                 document.getElementById('formMessage').style.display = 'none';
                 document.getElementById('phoneError').classList.remove('show');
+                document.getElementById('agreementError').classList.remove('show');
+                document.getElementById('privacyError').classList.remove('show');
+                
+                // Сбрасываем чекбоксы
+                document.getElementById('agreementCheckbox').checked = false;
+                document.getElementById('privacyCheckbox').checked = false;
                 
                 // Фокус на поле имени
                 document.getElementById('clientName').focus();
@@ -3101,6 +3261,8 @@
             document.getElementById('formMessage').style.display = 'none';
             document.getElementById('formMessage').textContent = '';
             document.getElementById('phoneError').classList.remove('show');
+            document.getElementById('agreementError').classList.remove('show');
+            document.getElementById('privacyError').classList.remove('show');
             const submitBtn = document.getElementById('submitBtn');
             submitBtn.disabled = false;
             submitBtn.textContent = 'Отправить заявку';
